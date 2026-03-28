@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  name       String
+  username   String?      @unique
+  email      String       @unique
+  password   String
+  Post       Post[]
+  blogs      Blogs[]
+  savedBlogs SavedBlogs[]
+  profile    Profile?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@index([id, email])
+}
+
+model Profile {
+  id         Int          @id @default(autoincrement())
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int          @unique
+  profilePic String?
+  bannerPic  String?
+  bio        String?
+  contact    String?
+  address    String?
+  dob        DateTime?
+  gender     String?
+  socials    Socials[]
+  posts      Post[]
+  blogs      Blogs[]
+  savedBlogs SavedBlogs[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@index([id, userId])
+}
+
+model Socials {
+  id        Int      @id @default(autoincrement())
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId Int
+  name      String
+  link      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id, profileId])
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Blogs {
+  id         Int          @id @default(autoincrement())
+  title      String
+  content    String
+  readtime   String
+  gallery    String[]
+  author     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  profile    Profile      @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId  Int
+  category   Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  savedBlogs SavedBlogs[]
+
+  @@index([id, userId])
+}
+
+model SavedBlogs {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  blog      Blogs    @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId    Int      @unique
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  blogs     Blogs[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

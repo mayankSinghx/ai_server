@@ -1,0 +1,40 @@
+{
+  "name": "agentic-ai-in-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx src/app.ts",
+    "start": "nodemon --exec tsx src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^25.0.2",
+    "@types/pg": "^8.16.0",
+    "@types/readline-sync": "^1.4.8",
+    "prisma": "^7.1.0",
+    "tsx": "^4.21.0"
+  },
+  "dependencies": {
+    "@google/genai": "^1.33.0",
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0",
+    "@types/cors": "^2.8.19",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "groq-sdk": "^0.37.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.0.2",
+    "nodemon": "^3.1.11",
+    "openai": "^6.16.0",
+    "pg": "^8.16.3",
+    "readline-sync": "^1.4.10"
+  }
+}
