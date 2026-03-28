@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "prisma generate",
+    "postinstall": "prisma generate",
     "dev": "tsx src/app.ts",
     "start": "nodemon --exec tsx src/app.ts"
   },
