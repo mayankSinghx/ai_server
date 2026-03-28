@@ -10,13 +10,12 @@ import blogAgent from "../utils/blog-agent"
 
 const app = express()
 
-app.use(cors(
-    {
-        origin: ["ai-todo-puce.vercel.app", "http://localhost:3000"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true
-    }
-))
+app.use(cors({
+    origin: ["https://ai-todo-puce.vercel.app", "http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use("/uploads", express.static("uploads"))
